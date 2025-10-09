@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Modern Product Display</title>
+    <!-- Google Fonts for elegant typography -->
+    <link href="https://fonts.googleapis.com/css?family=Inter:400,600&display=swap" rel="stylesheet">
+    <style>
+        /* ===========================
+             Base Styles
+        =========================== */
+        body {
+            font-family: 'Inter', Arial, sans-serif;
+            background-color: #f6f8fa;
+            margin: 0;
+            padding: 0;
+            color: #222;
+        }
+
+        /* ===========================
+             Product Block
+        =========================== */
+        .product {
+            max-width: 420px;
+            margin: 48px auto;
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 4px 24px rgba(30, 41, 59, 0.08);
+            padding: 32px 24px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 24px;
+        }
+
+        /* ===========================
+             Product Image
+        =========================== */
+        .product__image {
+            width: 100%;
+            max-width: 320px;
+            aspect-ratio: 1/1;
+            object-fit: cover;
+            border-radius: 16px;
+            box-shadow: 0 2px 12px rgba(30, 41, 59, 0.10);
+            transition: transform 0.3s cubic-bezier(.4,0,.2,1), box-shadow 0.3s cubic-bezier(.4,0,.2,1);
+        }
+        .product__image:hover,
+        .product__image:focus {
+            transform: scale(1.04);
+            box-shadow: 0 8px 32px rgba(30, 41, 59, 0.18);
+            outline: none;
+        }
+
+        /* ===========================
+             Product Title
+        =========================== */
+        .product__title {
+            font-size: 1.6rem;
+            font-weight: 600;
+            margin: 0;
+            text-align: center;
+            color: #1e293b;
+            letter-spacing: 0.01em;
+        }
+
+        /* ===========================
+             Product Price
+        =========================== */
+        .product__price {
+            font-size: 1.25rem;
+            font-weight: 500;
+            color: #2563eb;
+            margin: 0;
+            text-align: center;
+        }
+
+        /* ===========================
+             Add to Cart Button
+        =========================== */
+        .product__add-to-cart {
+            display: inline-block;
+            padding: 0.75em 2em;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #fff;
+            background: linear-gradient(90deg, #2563eb 0%, #1e40af 100%);
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(37, 99, 235, 0.10);
+            cursor: pointer;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+            outline: none;
+        }
+        .product__add-to-cart:hover,
+        .product__add-to-cart:focus {
+            background: linear-gradient(90deg, #1e40af 0%, #2563eb 100%);
+            box-shadow: 0 4px 16px rgba(37, 99, 235, 0.18);
+            transform: translateY(-2px) scale(1.03);
+        }
+
+        /* ===========================
+             Toast Notification
+        =========================== */
+        .product__toast {
+            position: fixed;
+            left: 50%;
+            bottom: 32px;
+            transform: translateX(-50%) translateY(40px);
+            min-width: 220px;
+            background: #2563eb;
+            color: #fff;
+            font-size: 1rem;
+            font-weight: 500;
+            padding: 16px 32px;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(37, 99, 235, 0.18);
+            opacity: 0;
+            pointer-events: none;
+            z-index: 1000;
+            transition: opacity 0.4s cubic-bezier(.4,0,.2,1), transform 0.4s cubic-bezier(.4,0,.2,1);
+        }
+        .product__toast--visible {
+            opacity: 1;
+            transform: translateX(-50%) translateY(0);
+            pointer-events: auto;
+        }
+
+        /* ===========================
+             Responsive Layout
+        =========================== */
+        @media (max-width: 600px) {
+            .product {
+                padding: 20px 8px;
+                max-width: 100vw;
+                border-radius: 0;
+                box-shadow: none;
+            }
+            .product__image {
+                max-width: 100vw;
+                border-radius: 10px;
+            }
+        }
+        @media (min-width: 601px) and (max-width: 900px) {
+            .product {
+                max-width: 90vw;
+                padding: 28px 12px;
+            }
+            .product__image {
+                max-width: 260px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===========================
+             Product Display Section
+    =========================== -->
+    <main>
+        <section class="product" aria-label="Product details">
+            <img
+                src="https://images.unsplash.com/photo-1513708922410-1b7b2b2b2b2b?auto=format&fit=crop&w=600&q=80"
+                alt="Modern Wireless Headphones"
+                class="product__image"
+                tabindex="0"
+            >
+            <h1 class="product__title">Wireless Noise-Cancelling Headphones</h1>
+            <p class="product__price" aria-label="Price">$199.99</p>
+            <button class="product__add-to-cart" type="button" aria-label="Add to cart">
+                Add to Cart
+            </button>
+        </section>
+        <!-- Toast Notification -->
+        <div class="product__toast" id="product-toast" role="alert" aria-live="polite">
+            Added to cart!
+        </div>
+    </main>
+    <!-- ===========================
+             Minimal JS for Toast
+    =========================== -->
+    <script>
+        // Show toast notification on Add to Cart click
+        document.querySelector('.product__add-to-cart').addEventListener('click', function() {
+            const toast = document.getElementById('product-toast');
+            toast.classList.add('product__toast--visible');
+            setTimeout(() => {
+                toast.classList.remove('product__toast--visible');
+            }, 1800);
+        });
+    </script>
+</body>
+</html>

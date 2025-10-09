@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Conference Event Registration</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Professional, accessible form styles -->
+    <style>
+        body {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            font-family: 'Segoe UI', Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+        }
+        .container {
+            max-width: 480px;
+            margin: 48px auto;
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 4px 24px rgba(0,0,0,0.08);
+            padding: 32px 24px;
+        }
+        h1 {
+            text-align: center;
+            font-size: 2rem;
+            margin-bottom: 24px;
+            color: #2d3e50;
+        }
+        fieldset {
+            border: none;
+            padding: 0;
+            margin: 0 0 16px 0;
+        }
+        legend {
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-bottom: 12px;
+            color: #34495e;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            position: relative;
+        }
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 500;
+            color: #2d3e50;
+            cursor: pointer;
+        }
+        input, select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1.5px solid #bfc9d3;
+            border-radius: 6px;
+            font-size: 1rem;
+            background: #f8fafc;
+            transition: border-color 0.2s;
+            outline: none;
+        }
+        input:focus, select:focus {
+            border-color: #3a7bd5;
+            box-shadow: 0 0 0 2px #eaf1fb;
+        }
+        .error-message {
+            color: #d32f2f;
+            font-size: 0.97rem;
+            margin-top: 4px;
+            min-height: 18px;
+            display: block;
+            /* role="alert" is set in HTML, not here */
+        }
+        button[type="submit"] {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(90deg, #3a7bd5 0%, #00d2ff 100%);
+            color: #fff;
+            font-size: 1.1rem;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background 0.2s;
+            margin-top: 8px;
+        }
+        button[type="submit"]:focus {
+            outline: 2px solid #3a7bd5;
+            outline-offset: 2px;
+        }
+        /* Accessible error field highlight */
+        input[aria-invalid="true"], select[aria-invalid="true"] {
+            border-color: #d32f2f;
+            background: #fff6f6;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Conference Registration</h1>
+        <form id="registrationForm" novalidate aria-labelledby="formLegend">
+            <fieldset>
+                <legend id="formLegend">Register for the Conference</legend>
+                <!-- Name Field -->
+                <div class="form-group">
+                    <label for="name">Name<span aria-hidden="true" style="color:#d32f2f;">*</span></label>
+                    <input 
+                        type="text" 
+                        id="name" 
+                        name="name" 
+                        required 
+                        aria-required="true"
+                        aria-invalid="false"
+                        aria-errormessage="nameError"
+                        autocomplete="name"
+                    >
+                    <span id="nameError" class="error-message" role="alert"></span>
+                </div>
+                <!-- Email Field -->
+                <div class="form-group">
+                    <label for="email">Email<span aria-hidden="true" style="color:#d32f2f;">*</span></label>
+                    <input 
+                        type="email" 
+                        id="email" 
+                        name="email" 
+                        required 
+                        aria-required="true"
+                        aria-invalid="false"
+                        aria-errormessage="emailError"
+                        autocomplete="email"
+                    >
+                    <span id="emailError" class="error-message" role="alert"></span>
+                </div>
+                <!-- Phone Field -->
+                <div class="form-group">
+                    <label for="phone">Phone Number<span aria-hidden="true" style="color:#d32f2f;">*</span></label>
+                    <input 
+                        type="tel" 
+                        id="phone" 
+                        name="phone" 
+                        required 
+                        aria-required="true"
+                        aria-invalid="false"
+                        aria-errormessage="phoneError"
+                        autocomplete="tel"
+                        pattern="^[0-9+\-\s()]{7,15}$"
+                        placeholder="e.g. +1 555 123 4567"
+                    >
+                    <span id="phoneError" class="error-message" role="alert"></span>
+                </div>
+                <!-- Session Selection -->
+                <div class="form-group">
+                    <label for="session">Select Session<span aria-hidden="true" style="color:#d32f2f;">*</span></label>
+                    <select 
+                        id="session" 
+                        name="session" 
+                        required 
+                        aria-required="true"
+                        aria-invalid="false"
+                        aria-errormessage="sessionError"
+                    >
+                        <option value="">-- Please choose --</option>
+                        <option value="keynote">Keynote: Future of Tech</option>
+                        <option value="workshop">Workshop: AI in Practice</option>
+                        <option value="panel">Panel: Women in STEM</option>
+                        <option value="networking">Networking Lunch</option>
+                    </select>
+                    <span id="sessionError" class="error-message" role="alert"></span>
+                </div>
+                <button type="submit">Register</button>
+            </fieldset>
+        </form>
+    </div>
+    <!-- Minimal, accessible JavaScript validation -->
+    <script>
+        // Utility functions for validation
+        function validateEmail(email) {
+            // Simple, robust email regex
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+        function validatePhone(phone) {
+            // Accepts digits, spaces, +, -, (), 7-15 chars
+            return /^[0-9+\-\s()]{7,15}$/.test(phone.trim());
+        }
+
+        // Form validation logic
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            let valid = true;
+
+            // Name validation
+            const name = document.getElementById('name');
+            const nameError = document.getElementById('nameError');
+            if (!name.value.trim()) {
+                nameError.textContent = 'Please enter your name.';
+                name.setAttribute('aria-invalid', 'true');
+                valid = false;
+            } else {
+                nameError.textContent = '';
+                name.setAttribute('aria-invalid', 'false');
+            }
+
+            // Email validation
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            if (!email.value.trim()) {
+                emailError.textContent = 'Email is required.';
+                email.setAttribute('aria-invalid', 'true');
+                valid = false;
+            } else if (!validateEmail(email.value.trim())) {
+                emailError.textContent = 'Please enter a valid email address.';
+                email.setAttribute('aria-invalid', 'true');
+                valid = false;
+            } else {
+                emailError.textContent = '';
+                email.setAttribute('aria-invalid', 'false');
+            }
+
+            // Phone validation
+            const phone = document.getElementById('phone');
+            const phoneError = document.getElementById('phoneError');
+            if (!phone.value.trim()) {
+                phoneError.textContent = 'Phone number is required.';
+                phone.setAttribute('aria-invalid', 'true');
+                valid = false;
+            } else if (!validatePhone(phone.value.trim())) {
+                phoneError.textContent = 'Enter a valid phone number (7-15 digits).';
+                phone.setAttribute('aria-invalid', 'true');
+                valid = false;
+            } else {
+                phoneError.textContent = '';
+                phone.setAttribute('aria-invalid', 'false');
+            }
+
+            // Session validation
+            const session = document.getElementById('session');
+            const sessionError = document.getElementById('sessionError');
+            if (!session.value) {
+                sessionError.textContent = 'Please select a session.';
+                session.setAttribute('aria-invalid', 'true');
+                valid = false;
+            } else {
+                sessionError.textContent = '';
+                session.setAttribute('aria-invalid', 'false');
+            }
+
+            // If valid, submit (for demo, just show alert)
+            if (valid) {
+                alert('Registration successful! Thank you.');
+                e.target.reset();
+                // Reset aria-invalid for all fields
+                [name, email, phone, session].forEach(f => f.setAttribute('aria-invalid', 'false'));
+            }
+        });
+
+        // Accessible: clear error on input
+        ['name', 'email', 'phone', 'session'].forEach(function(id) {
+            document.getElementById(id).addEventListener('input', function() {
+                const errorSpan = document.getElementById(id + 'Error');
+                errorSpan.textContent = '';
+                this.setAttribute('aria-invalid', 'false');
+            });
+        });
+    </script>
+</body>
+</html>
