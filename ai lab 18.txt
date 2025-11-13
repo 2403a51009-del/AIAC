@@ -1,0 +1,46 @@
+{
+    "coord": {
+        "lon": -110.0592,
+        "lat": 27.5188
+    },
+    "weather": [
+        {
+            "id": 800,
+            "main": "Clear",
+            "description": "clear sky",
+            "icon": "01n"
+        }
+    ],
+    "base": "stations",
+    "main": {
+        "temp": 25.53,
+        "feels_like": 24.92,
+        "temp_min": 25.53,
+        "temp_max": 25.53,
+        "pressure": 1011,
+        "humidity": 30,
+        "sea_level": 1011,
+        "grnd_level": 1008
+    },
+    "visibility": 10000,
+    "wind": {
+        "speed": 1.45,
+        "deg": 41,
+        "gust": 1.51
+    },
+    "clouds": {
+        "all": 1
+    },
+    "dt": 1761729214,
+    "sys": {
+        "country": "MX",
+        "sunrise": 1761744536,
+        "sunset": 1761784724
+    },
+    "timezone": -25200,
+    "id": 4013704,
+    "name": "America",
+    "cod": 200,
+    "timestamp": "2025-10-29 14:42:46"
+}
+
