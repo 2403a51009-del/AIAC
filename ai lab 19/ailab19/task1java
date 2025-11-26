@@ -1,0 +1,13 @@
+function printNumbers() {
+    for (let i = 1; i <= 10; i++) {
+        console.log(i);
+    }
+}
+
+// Call the function
+printNumbers();
+
+// If run directly with Node.js, call again (mirrors Python's __main__ behavior)
+if (typeof require !== "undefined" && require.main === module) {
+    printNumbers();
+}
